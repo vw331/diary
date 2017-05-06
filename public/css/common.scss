@@ -1,0 +1,503 @@
+@import 'base.scss';
+@import 'reset.scss';
+
+/*auxiliary*/
+.notes{
+  color : $noteColor;
+  margin : 8px 0;
+}
+
+.fl{
+  float : left
+}
+
+.fr{
+  float : right
+}
+
+
+/*vue animation*/
+.fade-enter-active{
+  opacity : 0;
+  transform : translateY(-30px);
+  transition:opacity .2s ease , transform .2s ease
+}
+
+.fade-enter-to{
+  opacity : 1;
+  transform : translateY(0)
+}
+
+.fade-leave-active{
+  opacity : 1;
+  transform : translateY(0px);
+  transition:opacity .2s ease , transform .2s ease
+}
+
+.fade-leave-to{
+  opacity : 0;
+  transform : translateY(-30px)
+}
+
+
+/*icon font*/
+@font-face {
+  font-family: 'iconfont';  /* project id 240106 */
+  src: url('//at.alicdn.com/t/font_t5cua3bldm3d6lxr.eot');
+  src: url('//at.alicdn.com/t/font_t5cua3bldm3d6lxr.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_t5cua3bldm3d6lxr.woff') format('woff'),
+  url('//at.alicdn.com/t/font_t5cua3bldm3d6lxr.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_t5cua3bldm3d6lxr.svg#iconfont') format('svg');
+}
+
+/*layout*/
+.bd{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column
+}
+
+.header{
+  width:100%;
+  height:50px;
+  background:$bgColor
+}
+
+.header-warp{
+  width:990px;
+  margin:0 auto;
+  height:50px
+}
+.logo{
+  float:left;
+}
+.logo>img{
+  padding-top:15px
+}
+.menu{
+  float:left;
+  list-style:none;
+  margin-left:60px
+}
+.menu>li{
+  display:inline-block;
+}
+.menu>li>a{
+  display:block;
+  line-height:50px;
+  font-size:16px;
+  padding :0 15px;
+  letter-spacing: 0.55px;
+  text-decoration:none;
+  font-weight: 400;
+  color : $linkColor
+}
+.menu>li>a:hover{
+  color : $linkHoverColor
+}
+.tools{
+  float:right
+}
+.tools>li{
+  display:inline-block;
+  margin:8px 4px
+}
+.icon-set{
+  @include toolbar-icon( '\e63d' )
+}
+.icon-skin{
+  @include toolbar-icon( '\e616' )
+}
+
+.container{flex:1}
+
+.footer{
+  width:100%;
+  height:60px;
+  background:$bgColor;
+
+  .footer-warp{
+    width : $mainWidth;
+    margin : 0 auto;
+  }
+
+  .statement{
+    margin-top:20px;
+    font-size:13px;
+    color : $darkColor
+  }
+}
+
+/*button*/
+
+.btn-default{
+  @include btn()
+}
+
+.btn-primary{
+  @include btn($bgColor:$darkColor,$color:#ffffff)
+}
+
+
+/*component*/
+
+.drop-down{
+
+  $width : 180px;
+
+  position : relative;
+
+
+
+  .drop-down-box{
+    position : absolute;
+    top : 40px;
+    left : -($width/2)+13;
+    opacity : 0;
+    background : #ffffff;
+    z-index: 999;
+    visibility : hidden;
+    transform:translateY(20px);
+    transition : visibility .2s ease,opacity .2s ease,transform .2s ease;
+
+    &:before{
+      content : '';
+      display : block;
+      width : 16px;
+      height : 16px;
+      background : #ffffff;
+      position : absolute;
+      top : -8px;
+      left : 50%;
+      margin-left : -8px;
+      transform: rotate(45deg) ;
+
+      @include border-radius(2px)
+    }
+
+    @include shadow();
+    @include border-radius(3px)
+  }
+
+  &.active {
+    .drop-down-box{
+      visibility : visible;
+      opacity : 1;
+      transform:translateY(0px);
+      transition : opacity 0.2s ease , transform 0.2s ease;
+    }
+  }
+
+  .drop-down-warp{
+    padding : 6px 0;
+    min-width : 120px;
+
+  }
+
+  .dividing-line{
+    font-size:0;
+    height:0;
+    line-height:0;
+    margin : 4px 0;
+    border-bottom:1px solid $borderColor
+  }
+
+  .drop-down-item{
+    display : block;
+    width : $width;
+    padding : 10px 20px;
+    background : #ffffff;
+    color : #666666;
+    font-size:14px;
+    text-decoration: none;
+    &:hover{
+      background : darken( #ffffff,5%);
+    }
+  }
+}
+
+.layer{
+  @include mask;
+
+  &.slide-enter-active{
+    opacity : 1;
+    transition : opacity .2s linear;
+
+    .layer-modal{
+      height : 110px;
+      transition : height .2s ease;
+    }
+  }
+
+  &.slide-enter-to{
+    opacity : 1;
+
+    .layer-modal{
+      height : calc(100% - 200px);
+      height : -webkit-calc(100% - 200px);
+      height : -moz-calc(100% - 200px);
+    }
+  }
+
+  &.slide-leave-active{
+    opacity : 1;
+    transition : opacity .2s linear
+  }
+
+  &.slide-leave-to{
+    opacity : 0
+  }
+
+  .layer-modal{
+    width : 500px;
+    height : calc(100% - 200px);
+    height : -webkit-calc(100% - 200px);
+    height : -moz-calc(100% - 200px);
+    position : absolute;
+    top : 50%;
+    left : 50%;
+    display : flex;
+    flex-direction : column;
+    transform : translate(-50%,-50%);
+    background : #ffffff;
+
+    @include border-radius();
+    @include shadow( $y:6px , $blur:10px , $alpha:.3);
+  }
+
+  .model-header{
+    height : 42px;
+    padding : 12px 12px;
+    border-bottom : 1px solid $borderColor;
+  }
+
+  .model-title{
+    color : $titleColor
+  }
+
+  .model-close{
+    float : right;
+    margin-top : -20px;
+    width : 26px;
+    height : 26px;
+    font-family: 'iconfont';
+    font-size : 26px;
+    cursor : pointer;
+    font-style: normal;
+    color :  $textBorderColor
+  }
+
+  .model-body{
+    flex : 1;
+    overflow : auto
+  }
+
+  .model-footer{
+    padding : 16px;
+    background : $darkBgColor;
+    text-align : right;
+    border-top : 1px solid $borderColor;
+  }
+}
+
+.aside{
+  @include mask;
+
+  &.sideslip-enter-active{
+    background-color : rgba(0,0,0,0);
+    transition : background-color .2s linear;
+
+    .aside-model{
+      transform: translateX(100%);
+      transition : transform .2s linear
+    }
+  };
+
+  &.sideslip-enter-to{
+    background-color : rgba(0,0,0,0.4);
+
+    .aside-model{
+      transform: translateX(0);
+    }
+  }
+
+  &.sideslip-leave-active{
+    background-color : rgba(0,0,0,0.4);
+    transition : background-color .2s linear;
+
+    .aside-model{
+      transform : translateX(0);
+      transition : transform .2s linear
+    }
+  }
+
+  &.sideslip-leave-to{
+    background-color : rgba(0,0,0,0.0);
+
+    .aside-model{
+      transform : translateX(100%)
+    }
+  }
+
+  .aside-model{
+    width : 450px;
+    height : 100%;
+    background : #ffffff;
+    position : absolute;
+    right : 0;
+    display : flex;
+    flex-direction: column;
+  }
+
+  .aside-model-header{
+    width : 100%;
+    height : 42px;
+    padding : 12px 12px;
+    border-bottom : 1px solid $borderColor;
+  }
+
+  .aside-model-body{
+    flex : 1;
+    overflow: auto;
+  }
+}
+
+.jumbotron{
+
+  $paperBg : #ffffff;
+
+  @include mask( $bg:linear-gradient(to bottom, rgba(0, 0, 0, .95) 0%, rgba(22, 23, 26, .95) 75%, rgba(22, 23, 26, .95) 100%) );
+
+
+  .jumbotron-warp{
+    width : $mainWidth;
+    height : 100%;
+    margin : 0 auto;
+    padding: 20px 0 1px;
+    display : flex;
+    position : relative;
+    flex-direction: column;
+    transition : width .5s linear;
+
+    &.max{
+      padding-left: 5px;
+      padding-right : 5px;
+      width : 100%;
+    }
+
+  }
+
+  .dec{
+    display : block;
+    width : 99.5%;
+    height : 8px;
+    margin: 0 auto -2px;
+    background : $paperBg;
+    z-index : 9999;
+    @include shadow( $x:0,$y:-2px,$blur:3px,$Spread:0px,$alpha:.1);
+    @include border-radius();
+
+    &:first-child{
+      width : 99%;
+    }
+  }
+
+  .jumbotron-modal{
+    flex : 1;
+    display: flex;
+    flex-direction: column;
+    background : $paperBg;
+    z-index : 10000;
+    padding : 5px;
+    @include shadow( $x:0,$y:-2px,$blur:3px,$Spread:0px,$alpha:.1);
+    @include border-radius();
+
+  }
+
+  .jumbotron-header{
+    height : 45px;
+    border-bottom : 1px solid $borderColor;
+
+    .tool{
+      display : inline-block;
+      margin : 2px 5px;
+    }
+
+    .icon{
+      display : inline-block;
+      text-align : center;
+      cursor : pointer;
+      font-size : 16px;
+      font-style : normal;;
+      font-family: 'iconfont';
+      color : $noteColor;
+      line-height : 30px;
+      width : 30px;
+      height : 30px;
+
+      &:hover{
+        color : darken( $noteColor , 50% )
+      }
+    }
+  }
+
+  .jumbotron-body{
+    flex : 1;
+    overflow:auto
+  }
+
+  .jumbotron-footer{
+    height : 60px;
+    border-top : 1px solid $borderColor
+  }
+
+}
+
+.row-control{
+  width : 100%;
+  margin-bottom:16px;
+
+  .notes{
+    margin-bottom:0
+  }
+}
+
+.label-control{
+  float: left;
+  width : 120px;
+  height : 36px;
+  font-weight : bold;
+  padding : 0 20px;
+  line-height : 36px;
+  text-align : right
+}
+
+.text-control{
+  width : 450px;
+  padding : 8px 10px;
+  height : 36px;
+  color : $textColor;
+  border : 1px solid $textBorderColor;
+  background-color : $textBgColor;
+
+  @include border-radius(3px)
+}
+
+
+.row-control{
+
+  .row-left{
+    display : inline-block;
+    min-width : 120px;
+    vertical-align : top
+  }
+  .row-right{
+    display : inline-block;
+    vertical-align : top
+  }
+
+}
+
+
+

@@ -1,0 +1,39 @@
+@import 'base.scss';
+
+$leftWidth : 260px;
+
+html , body , .bd{
+  min-height : 100%
+}
+
+.container{
+  background:url($containerBgImg) center 0 no-repeat $bgColor
+}
+
+.main{
+  width : $mainWidth;
+  min-height : 600px;
+  margin : 80px auto 0 auto;
+  background : $defaultColor;
+  @include border-radius();
+}
+
+.main-left{
+  float : left;
+  width : $leftWidth;
+}
+
+.main-right{
+  margin-left : $leftWidth;
+  padding-top: 1px;
+  border-left: 1px solid $borderColor;
+}
+
+.headImg-warp{
+  width : 126px;
+  margin : 50px auto;
+}
+
+.infor-warp{
+  padding : 60px 20px 20px
+}

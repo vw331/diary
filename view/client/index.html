@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>时光日记</title>
+    <link href="../../public/css/common.css" type="text/css" rel="stylesheet"/>
+    <link href="../../public/css/index.css" type="text/css" rel="stylesheet">
+    <script src="../../public/js/lib/jquery-3.1.1.js"></script>
+    <script src="../../public/js/lib/vue.js"></script>
+    <script src="../../public/js/lib/lodash.min.js"></script>
+    <script src="../../public/js/app/common.js"></script>
+    <script src="../../public/js/app/index.js"></script>
+</head>
+<body>
+
+<section class="bd" id="index">
+    <nav class="header" id="header">
+        <div class="header-warp">
+            <div class="logo" v-on:click="dialogShow=true"><img src="../../public/images/logo.png"></div>
+            <ul class="menu">
+                <li><a href="javascript:;">首页</a></li>
+                <li><a href="javascript:;">广场</a></li>
+                <li><a href="javascript:;">足迹</a></li>
+            </ul>
+            <ul class="tools">
+                <li>
+                    <a class="icon-skin" herf="javascript:;"></a>
+                </li>
+                <li>
+                    <div class="drop-down">
+                        <a class="icon-set" herf="javascript:;"></a>
+                        <div class="drop-down-box">
+                            <ul class="drop-down-warp">
+                                <li><a href="javascript:;" class="drop-down-item">我的日记</a></li>
+                                <li class="dividing-line"></li>
+                                <li><a href="javascript:;" class="drop-down-item">消息通知</a></li>
+                                <li class="dividing-line"></li>
+                                <li><a href="javascript:;" class="drop-down-item">个人设置</a></li>
+                                <li class="dividing-line"></li>
+                                <li><a href="javascript:;" class="drop-down-item">退出</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="container">
+        <div class="main">
+            <div class="main-up">
+                <div class="up-left">
+                    <div class="infor">
+                        <div class="head-portrait"><img src="../../public/images/msg.png"></div>
+                        <dl class="msg-content">
+                            <dt class="msg-name">春春</dt>
+                            <dd class="autograph">人类的梦想是不会终结的</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="up-right">
+                    <div class="main-toolbar">
+                        <div class="search-warp">
+                            <input type="text" class="search-text" placeholder="请输入要查询的内容"/>
+                            <button class="search-btn">&#xe611;</button>
+                        </div>
+                        <div class="change-date">
+                            <a href="javascript:;" class="change-prev" v-on:click="prevDate"></a>
+                            <a href="javascript:;" class="change-next" v-on:click="nextDate"></a>
+                        </div>
+                        <dl class="date-current">
+                            <dt class="date-month">{{ month<10 ? '0'+month : month }}</dt>
+                            <dd class="date-year">{{ year }}</dd>
+                        </dl>
+
+                    </div>
+                </div>
+            </div>
+            <div class="main-down" v-on:mouseenter="calendarOnFocus=true" v-on:mouseleave="calendarOnFocus=false">
+                <component-calendar
+                        v-bind:date-obj="dateObj"
+                        v-on:over="calendarOver"
+                        v-on:leave="calendarLeave"
+                        v-on:active="calendarActive">
+                </component-calendar>
+            </div>
+        </div>
+
+    </section>
+    <footer class="footer">
+        <div class="footer-warp">
+            <p class="statement">网站基于Nodejs开发 版权所有 © 2012-2014       提交BUG 黔ICP备15004722号-1</p>
+        </div>
+    </footer>
+
+    <component-pop  v-show="popShow" v-bind:position="popPosition"  v-bind:options="popMsg"></component-pop>
+
+    <component-dialog v-bind:show="dialogShow" v-on:close="dialogClose"></component-dialog>
+
+    <component-aside v-bind:show="asideShow" v-bind:width="500" v-on:close="asideClose"></component-aside>
+
+    <component-jumbotron v-bind:show="jumbotronShow"></component-jumbotron>
+
+    <!--<div class="jumbotron">
+        <div class="jumbotron-warp">
+            <i class="dec"></i>
+            <i class="dec"></i>
+            <div class="jumbotron-modal">
+                <div class="jumbotron-header">
+                    <div class="tool fr">
+                        <i class="icon">&#xe606</i>
+                    </div>
+                </div>
+                <div class="jumbotron-body">
+                    <div style="height:1800px">
+                        afwe
+                    </div>
+                </div>
+                <div class="jumbotron-footer">
+                    footer
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+</section>
+
+</body>
+</html>
